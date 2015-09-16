@@ -7,7 +7,7 @@ class ThreadingSimpleServer(SocketServer.ThreadingMixIn,
     pass
 
 
-BROADCAST = '10.6.15.255'
+
 MYPORT = 5000
 bufferSize = 1024
 
@@ -20,6 +20,10 @@ def get_ip_address():
 	s = socket(AF_INET, SOCK_DGRAM)
 	s.connect(("8.8.8.8", 80))
 	return s.getsockname()[0]  
+
+
+BROADCAST = '10.6.15.255'
+
 
 def broadcast_server_ip():
 	s = socket(AF_INET, SOCK_DGRAM)
@@ -56,6 +60,9 @@ def main():
 		port = int(sys.argv[1])
 	else:
 		port = 8000
+
+	print "SERVER STARTED at " + repr(port)
+
 
 	server = ThreadingSimpleServer(('', port), SimpleHTTPServer.SimpleHTTPRequestHandler)
 	try:
