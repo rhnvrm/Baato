@@ -54,6 +54,18 @@ def broadcast_end_session():
 	#time.sleep(2)
 	s.sendto(data, ('<broadcast>', MYPORT))  	
 
+def broadcast_start_session():
+	s = socket(AF_INET, SOCK_DGRAM)
+	s.bind(('', 0))
+	s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
+	data = "STARTED;" + get_ip_address() + ":" + repr(SERVERPORT)
+
+	s.sendto(data, ('<broadcast>', MYPORT))
+	#time.sleep(2)
+	s.sendto(data, ('<broadcast>', MYPORT))
+	#time.sleep(2)
+	s.sendto(data, ('<broadcast>', MYPORT))  		
+
 def listener_thread():
 	print "Listening Service is now Running";
 	listner = socket(AF_INET, SOCK_DGRAM)
@@ -84,6 +96,9 @@ def server_thread():
 
 
 	server = ThreadingSimpleServer(('', port), SimpleHTTPServer.SimpleHTTPRequestHandler)
+	
+	broadcast_start_session()
+
 	try:
 	    while 1:
 			sys.stdout.flush()
