@@ -34,13 +34,25 @@ def broadcast_server_ip():
 	s = socket(AF_INET, SOCK_DGRAM)
 	s.bind(('', 0))
 	s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-	data = get_ip_address() + ":" + repr(SERVERPORT)
+	data = "ONLINE;" +get_ip_address() + ":" + repr(SERVERPORT)
 	print "Server IP has been broadcasted."	  
 	s.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
 	s.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
 	s.sendto(data, ('<broadcast>', MYPORT))  
+
+def broadcast_end_session():
+	s = socket(AF_INET, SOCK_DGRAM)
+	s.bind(('', 0))
+	s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
+	data = "CLOSED;" + get_ip_address() + ":" + repr(SERVERPORT)
+
+	s.sendto(data, ('<broadcast>', MYPORT))
+	#time.sleep(2)
+	s.sendto(data, ('<broadcast>', MYPORT))
+	#time.sleep(2)
+	s.sendto(data, ('<broadcast>', MYPORT))  	
 
 def listener_thread():
 	print "Listening Service is now Running";
@@ -91,17 +103,17 @@ def main():
 	thread.start_new_thread(server_thread, ())
 
 	print "Welcome to Baato File Sharing Service"
-	print "Type `man` for the Manual or `exit` to Exit"
+	print "Type `man` for the Manual or `eXit` to Exit"
 
 	inp = ""
-	while(inp != "exit"):
+	while(inp != "exit" and inp != "x"):
 		inp = raw_input()
 
 		if inp == "man":
 			displayManual()
 
       
-
+	broadcast_end_session()
 
 if __name__ == "__main__":
     main()
