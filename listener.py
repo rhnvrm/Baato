@@ -32,7 +32,7 @@ def listener_thread():
 	while True:
 	    result = select.select([s],[],[])
 	    msg = result[0][0].recv(bufferSize) 
-	    print msg
+	    #print msg
 	    if(msg != "QUERY"):
 		    status = msg.split(';')[0]
 		    ip = msg.split(';')[1]
@@ -40,6 +40,9 @@ def listener_thread():
 		    if(status == "ONLINE"):
 		    	if(ip not in ONLINE_LIST):
 		    		ONLINE_LIST.append(ip)
+		    if(status == "CLOSED"):
+		    	if(ip in ONLINE_LIST):
+		    		ONLINE_LIST.remove(ip)
 
 
 
