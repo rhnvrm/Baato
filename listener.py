@@ -1,6 +1,6 @@
 import select, socket 
 import thread
-from flask import Flask
+from flask import Flask, render_template
 
 ONLINE_LIST = []
 
@@ -49,8 +49,8 @@ def listener_thread():
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-	return repr(ONLINE_LIST)
+def display():
+	return render_template('index.html', online=ONLINE_LIST)
 
 if __name__ == '__main__':
 	thread.start_new_thread(listener_thread, ())
