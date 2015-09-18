@@ -33,6 +33,7 @@ class ThreadingSimpleServer(SocketServer.ThreadingMixIn,
 
 MYPORT = 50000
 SERVERPORT = 0
+SERVERNAME = "New Baato Server"
 bufferSize = 1024
 
 import sys, time
@@ -57,7 +58,7 @@ def broadcast_server_ip():
 	s = socket(AF_INET, SOCK_DGRAM)
 	s.bind(('', 0))
 	s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-	data = "ONLINE;" +get_ip_address() + ":" + repr(SERVERPORT)
+	data = "ONLINE;http://" + get_ip_address() + ":" + repr(SERVERPORT) + ";" +SERVERNAME
 	print "Server IP has been broadcasted."	  
 	s.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
@@ -69,7 +70,7 @@ def broadcast_end_session():
 	s = socket(AF_INET, SOCK_DGRAM)
 	s.bind(('', 0))
 	s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-	data = "CLOSED;" + get_ip_address() + ":" + repr(SERVERPORT)
+	data = "CLOSED;http://" + get_ip_address() + ":" + repr(SERVERPORT) + ";" +SERVERNAME
 
 	s.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
@@ -81,7 +82,7 @@ def broadcast_start_session():
 	s = socket(AF_INET, SOCK_DGRAM)
 	s.bind(('', 0))
 	s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-	data = "STARTED;" + get_ip_address() + ":" + repr(SERVERPORT)
+	data = "STARTED;http://" + get_ip_address() + ":" + repr(SERVERPORT) + ";" +SERVERNAME
 
 	s.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
@@ -106,14 +107,21 @@ def listener_thread():
 def server_thread():
 
 	global SERVERPORT
+	global SERVERNAME
 
 	if sys.argv[1:]:
 		port = int(sys.argv[1])
-		SERVERPORT = port
 	else:
 		port = 8000
-		SERVERPORT = port
+		
+	SERVERPORT = port
 
+	if sys.argv[2:]:
+		server_name = sys.argv[2]
+	else:
+		server_name = "New Baato Server"
+
+	SERVERNAME = server_name
 
 	print "HTTP Server running at " + get_ip_address() + ":" + repr(SERVERPORT)
 
