@@ -117,7 +117,10 @@ def server_thread():
 	SERVERPORT = port
 
 	if sys.argv[2:]:
-		server_name = sys.argv[2]
+		temp_string = ""
+		for i in sys.argv[2:]:
+			temp_string += " " + i
+		server_name = temp_string
 	else:
 		server_name = "New Baato Server"
 
@@ -148,8 +151,17 @@ def main():
 	thread.start_new_thread(listener_thread, ())
 	thread.start_new_thread(server_thread, ())
 
-	print "Welcome to Baato File Sharing Service"
-	print "Type `man` for the Manual or `eXit` to Exit"
+	print """......................................................	   
+	Welcome to Baato :: Host Service
+......................................................
+
+order of args <port> <server name>
+
+created by: rhnvrm
+  
+Type `man` for the Manual or `exit` `x` to Exit
+
+"""
 
 	inp = ""
 	while(inp != "exit" and inp != "x"):

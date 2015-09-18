@@ -37,13 +37,15 @@ def broadcast_query():
 	if(RESET == 0):
 		time.sleep(15*60)
 		RESET = 1
-	RESET = 1
+
+	
 	query = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	query.bind(('', 0))
 	query.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 	data = 'QUERY'
 	query.sendto(data, ('<broadcast>', MYPORT))
 	print "Sent Refresh QUERY"
+
 
 def listener_thread():
 
@@ -72,6 +74,7 @@ def listener_thread():
 	    	ONLINE_LIST = []
 	    	ONLINE_IP_LIST = []
 	    	RESET = 0
+	    	thread.start_new_thread(broadcast_query, ())
 
 	    if(msg != "QUERY"):
 		    status = msg.split(';')[0]
@@ -102,5 +105,4 @@ def display():
 if __name__ == '__main__':
 	thread.start_new_thread(listener_thread, ())
 	thread.start_new_thread(broadcast_query, ())
-	#app.run(debug=True)
 	app.run(host='0.0.0.0')
