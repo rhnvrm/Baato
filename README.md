@@ -19,7 +19,7 @@ For Example: `python baato.py 8080 "Rohan's Server"` will start a server at port
 
 The host server is an HTTP server that can handle simultaneous requests. It can also be used to run your own static website. Include an `index.html` in the root the directory where you started the server.
 
-If you want to start the server in a different directory you should change your current working directory (eg `cd c:/share`) to that folder and run `python ~/Downloads/baato.py 8080 "Demo"` or you can copy/paste `baato.py` in the directory you would like to start the server and run it as `python baato`
+If you want to start the server in a different directory you should change your current working directory (eg `cd c:/share`) to that folder and run `python ~/Downloads/baato.py 8080 "Demo"` or you can copy/paste `baato.py` in the directory you would like to start the server and run it as `python baato.py`
 
 ##Running the Listening Server
 If you don't have access to the IPs of the Host Servers, you can run the Listening Server on your machine. Ideally, a simple user won't need to bother with this and will just goto the Listening Server hosted by one of the Hosts and just need to bookmark that URL. 
