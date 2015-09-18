@@ -4,6 +4,8 @@ Requires `Python 2.7` (and [Flask](http://flask.pocoo.org/) for `listener.py`)
 
 You can download [Python 2.7](https://www.python.org/downloads/release/python-2710/) and for [windows](https://www.python.org/downloads/release/python-2710/)
 
+Make sure you have added [python to PATH](http://stackoverflow.com/a/21433154/790971) 
+
 This is in the **ALPHA** stage and it has not been tested, please report bugs and suggestions on the Issues section.
 
 
