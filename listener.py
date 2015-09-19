@@ -35,7 +35,7 @@ def broadcast_query():
 
 	global RESET
 	if(RESET == 0):
-		time.sleep(15*60)
+		time.sleep(10*60)
 		RESET = 1
 
 	
@@ -56,7 +56,6 @@ def listener_thread():
 	bufferSize = 1024 # whatever you need
 
 	#BROADCAST = '10.6.15.255'
-	MYPORT = 50000
 
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
