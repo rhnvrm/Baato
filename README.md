@@ -6,7 +6,7 @@ You can download [Python 2.7](https://www.python.org/downloads/release/python-27
 
 Make sure you have added [python to PATH](http://stackoverflow.com/a/21433154/790971) 
 
-This is in the **ALPHA** stage and it has not been tested, please report bugs and suggestions on the Issues section.
+This is in the **BETA** stage, please report bugs and suggestions on the Issues section.
 
 
 
