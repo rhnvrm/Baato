@@ -10,27 +10,38 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="static/bootstrap/js/bootstrap.min.js"></script>
+<style type="text/css">
+	body{
+		background: url("static/swirl_pattern/swirl_pattern.png") repeat;
+	}
+
+	.table{
+		background: #f8f8f8;
+	}
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div class="container-fluid">
-<h1><span class="glyphicon glyphicon-share" aria-hidden="true"></span>&nbsp;<a href="https://github.com/rhnvrm/Baato">Baato</a>: Host Listing Service</h1>
-<div class="container-fluid"> 
-	<table class="table table-condensed table-hover table-bordered">
+	<div class="container-fluid" style="padding-bottom: 10px;background: rgba(255, 255, 255, 0.91)!important;border-radius: 20px; margin-top: 20px;">
+		<h1><span class="glyphicon glyphicon-share" aria-hidden="true"></span>&nbsp;<a href="https://github.com/rhnvrm/Baato">Baato</a>: Host Listing Service</h1>
+		<div class="container-fluid"> 
+			<table class="table table-condensed table-hover table-bordered">
 
-		<tr>
-			<th>Active Hosts</th>
-		</tr>
-		{% for i in online %}
-		<tr>
-			<td><a href={{i[0]}}>{{i[1]}}</a></td>
-		</tr>
-		{% endfor %}
+				<tr>
+					<th>Active Hosts</th>
+				</tr>
+				{% for i in online %}
+				<tr>
+					<td><a href={{i[0]}}>{{i[1]}}</a></td>
+				</tr>
+				{% endfor %}
 
-	</table>
+			</table>
 
-	made with <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> by <a href="http://github.com/rhnvrm">rhnvrm</a>
-</div>
+			made with <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> by <a href="http://github.com/rhnvrm">rhnvrm</a>
+		</div>
+	</div>
 </div>
 </body>
 </html>
