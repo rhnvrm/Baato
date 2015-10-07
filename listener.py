@@ -19,7 +19,7 @@ Baato
 
 """
 
-
+import sys
 import select, socket
 import time
 import thread
@@ -30,6 +30,7 @@ ONLINE_IP_LIST =[]
 RESET = 1
 
 MYPORT = 50000
+flaskPORT = 5000
 
 def get_ip_address():
 	ip = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -51,7 +52,7 @@ def broadcast_query():
 	query = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	query.bind(('', 0))
 	query.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-	data = 'QUERY;http://' + get_ip_address() + ":5000" + ";"
+	data = 'QUERY;http://' + get_ip_address() + ":" + repr(flaskPORT) + ";"
 	query.sendto(data, ('<broadcast>', MYPORT))
 	print "Sent Refresh QUERY"
 
@@ -111,6 +112,11 @@ def display():
 
 
 if __name__ == '__main__':
+	if sys.argv[1:]:
+		flaskPORT = int(sys.argv[1])
+	else:
+		flaskPORT = 5000
+
 	thread.start_new_thread(listener_thread, ())
 	thread.start_new_thread(broadcast_query, ())
-	app.run(host='0.0.0.0')
+	app.run(host = '0.0.0.0', port = flaskPORT)
