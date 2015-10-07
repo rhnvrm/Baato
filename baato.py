@@ -59,7 +59,7 @@ def broadcast_server_ip():
 	sb.bind(('', 0))
 	sb.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
 	data = "ONLINE;http://" + get_ip_address() + ":" + repr(SERVERPORT) + ";" +SERVERNAME
-	print "Server IP has been broadcasted."	  
+	#print "Server IP has been broadcasted."	  
 	sb.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
 	sb.sendto(data, ('<broadcast>', MYPORT))
@@ -103,7 +103,7 @@ def listener_thread():
 		msg = result[0][0].recv(bufferSize) 
 		msg_split = msg.split(';');
 		if(msg_split[0] == "QUERY"):
-			print "Found a Listener Running on: " + msg_split[1];
+			print "Connected with a Listener Running on: " + msg_split[1];
 			broadcast_server_ip()
 
 def server_thread():
