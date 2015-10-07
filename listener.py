@@ -85,7 +85,8 @@ def listener_thread():
 	    	RESET = 0
 	    	thread.start_new_thread(broadcast_query, ())
 
-	    if(msg != "QUERY"):
+	    msg_split = msg.split(';');
+	    if(msg_split[0] != "QUERY"):
 		    status = msg.split(';')[0]
 		    ip = msg.split(';')[1]
 		    name = msg.split(';')[2]
@@ -102,6 +103,7 @@ def listener_thread():
 		    	if(ip not in ONLINE_IP_LIST):
 		    		ONLINE_LIST.append([ip,name])
 		    		ONLINE_IP_LIST.append(ip)
+
 
 
 app = Flask(__name__)
