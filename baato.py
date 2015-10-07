@@ -62,9 +62,9 @@ def broadcast_server_ip():
 	#print "Server IP has been broadcasted."	  
 	sb.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
-	sb.sendto(data, ('<broadcast>', MYPORT))
+	#sb.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
-	sb.sendto(data, ('<broadcast>', MYPORT))  
+	#sb.sendto(data, ('<broadcast>', MYPORT))  
 
 def broadcast_end_session():
 	sb = socket(AF_INET, SOCK_DGRAM)
@@ -74,9 +74,9 @@ def broadcast_end_session():
 
 	sb.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
-	sb.sendto(data, ('<broadcast>', MYPORT))
+	#sb.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
-	sb.sendto(data, ('<broadcast>', MYPORT))  	
+	#sb.sendto(data, ('<broadcast>', MYPORT))  	
 
 def broadcast_start_session():
 	sb = socket(AF_INET, SOCK_DGRAM)
@@ -86,9 +86,9 @@ def broadcast_start_session():
 
 	sb.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
-	sb.sendto(data, ('<broadcast>', MYPORT))
+	#sb.sendto(data, ('<broadcast>', MYPORT))
 	#time.sleep(2)
-	sb.sendto(data, ('<broadcast>', MYPORT))  		
+	#sb.sendto(data, ('<broadcast>', MYPORT))  		
 
 def listener_thread():
 	print "Listening Service is now Running";
@@ -102,8 +102,8 @@ def listener_thread():
 		result = select.select([listener],[],[])
 		msg = result[0][0].recv(bufferSize) 
 		msg_split = msg.split(';');
-		if(msg_split[0] == "QUERY"):
-			print "Connected with a Listener Running on: " + msg_split[1];
+		if(msg_split[0] == "QUERY" or msg_split[0] == "CONNECTED"):
+			print "Connected with a Listener Running on: " + msg_split[1] #+ msg_split[0];
 			broadcast_server_ip()
 
 def server_thread():

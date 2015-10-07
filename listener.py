@@ -56,6 +56,13 @@ def broadcast_query():
 	query.sendto(data, ('<broadcast>', MYPORT))
 	print "Sent Refresh QUERY"
 
+def broadcast_connected():
+	sb = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	sb.bind(('', 0))
+	sb.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+	data = "CONNECTED;http://" + get_ip_address() + ":" + repr(flaskPORT) + ";"
+
+	sb.sendto(data, ('<broadcast>', MYPORT))	
 
 def listener_thread():
 
@@ -95,6 +102,7 @@ def listener_thread():
 		    	if(ip not in ONLINE_IP_LIST):
 		    		ONLINE_LIST.append([ip,name])
 		    		ONLINE_IP_LIST.append(ip)
+		    		broadcast_connected()
 		    if(status == "CLOSED"):
 		    	if(ip in ONLINE_IP_LIST):
 		    		ONLINE_LIST.remove([ip,name])
@@ -103,6 +111,7 @@ def listener_thread():
 		    	if(ip not in ONLINE_IP_LIST):
 		    		ONLINE_LIST.append([ip,name])
 		    		ONLINE_IP_LIST.append(ip)
+		    		broadcast_connected()
 
 
 
