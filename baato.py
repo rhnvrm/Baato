@@ -101,7 +101,9 @@ def listener_thread():
 	while 1:
 		result = select.select([listener],[],[])
 		msg = result[0][0].recv(bufferSize) 
-		if(msg == "QUERY"):
+		msg_split = msg.split(';');
+		if(msg_split[0] == "QUERY"):
+			print "Found a Listener Running on:" + msg_split[1];
 			broadcast_server_ip()
 
 def server_thread():

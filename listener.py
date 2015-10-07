@@ -31,6 +31,15 @@ RESET = 1
 
 MYPORT = 50000
 
+def get_ip_address():
+	ip = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	ip.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+	try:
+		ip.connect(('<broadcast>', 0))
+		return ip.getsockname()[0]  
+	except :
+		print 'error'
+
 def broadcast_query():
 
 	global RESET
@@ -42,7 +51,7 @@ def broadcast_query():
 	query = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	query.bind(('', 0))
 	query.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-	data = 'QUERY'
+	data = 'QUERY;http://' + get_ip_address() + ":5000" + ";"
 	query.sendto(data, ('<broadcast>', MYPORT))
 	print "Sent Refresh QUERY"
 
