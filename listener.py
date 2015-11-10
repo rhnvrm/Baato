@@ -23,6 +23,7 @@ import sys
 import select, socket
 import time
 import thread
+import argparse
 from flask import Flask, render_template
 
 ONLINE_LIST = []
@@ -30,7 +31,8 @@ ONLINE_IP_LIST =[]
 RESET = 1
 
 MYPORT = 50000
-flaskPORT = 5000
+DEFAULT_FLASK_PORT = 5000
+flaskPORT = DEFAULT_FLASK_PORT
 
 def get_ip_address():
 	ip = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -123,10 +125,12 @@ def display():
 
 
 if __name__ == '__main__':
-	if sys.argv[1:]:
-		flaskPORT = int(sys.argv[1])
-	else:
-		flaskPORT = 5000
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-p", "--port", default=DEFAULT_FLASK_PORT,	help="Specify to use a custom port for flask. Default port: 5000.")
+	
+	args = parser.parse_args()
+	
+	flaskPORT = args.port
 
 	thread.start_new_thread(listener_thread, ())
 	thread.start_new_thread(broadcast_query, ())
