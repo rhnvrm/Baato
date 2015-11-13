@@ -21,6 +21,7 @@ Baato
 
 
 
+import argparse
 import SocketServer
 import BaseHTTPServer
 import SimpleHTTPServer
@@ -32,7 +33,7 @@ class ThreadingSimpleServer(SocketServer.ThreadingMixIn,
 
 
 MYPORT = 50000
-SERVERPORT = 0
+SERVERPORT = 8000
 SERVERNAME = "New Baato Server"
 bufferSize = 1024
 
@@ -108,26 +109,6 @@ def listener_thread():
 
 def server_thread():
 
-	global SERVERPORT
-	global SERVERNAME
-
-	if sys.argv[1:]:
-		port = int(sys.argv[1])
-	else:
-		port = 8000
-		
-	SERVERPORT = port
-
-	if sys.argv[2:]:
-		temp_string = ""
-		for i in sys.argv[2:]:
-			temp_string += " " + i
-		server_name = temp_string
-	else:
-		server_name = "New Baato Server"
-
-	SERVERNAME = server_name
-
 	print "HTTP Server running at " + get_ip_address() + ":" + repr(SERVERPORT)
 
 
@@ -176,4 +157,11 @@ Type `man` for the Manual or `exit` `x` to Exit
 	broadcast_end_session()
 
 if __name__ == "__main__":
-    main()
+  	parser = argparse.ArgumentParser()
+  	
+   	parser.add_argument("-p", "--port", default=SERVERPORT,	help="Specify to use a custom server port. Default port: " + str(SERVERPORT))
+   	parser.add_argument("-n", "--name", nargs="*", default=[SERVERNAME], help="Specify to use a custom server name. Default name: " + SERVERNAME)
+   	args = parser.parse_args()
+   	SERVERPORT = args.port
+   	SERVERNAME = ' '.join(args.name)
+   	main()
