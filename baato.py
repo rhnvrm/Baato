@@ -112,7 +112,7 @@ def server_thread():
 	print "HTTP Server running at " + get_ip_address() + ":" + repr(SERVERPORT)
 
 
-	server = ThreadingSimpleServer(('', port), SimpleHTTPServer.SimpleHTTPRequestHandler)
+	server = ThreadingSimpleServer(('', SERVERPORT), SimpleHTTPServer.SimpleHTTPRequestHandler)
 	
 	broadcast_start_session()
 
@@ -162,6 +162,6 @@ if __name__ == "__main__":
    	parser.add_argument("-p", "--port", default=SERVERPORT,	help="Specify to use a custom server port. Default port: " + str(SERVERPORT))
    	parser.add_argument("-n", "--name", nargs="*", default=[SERVERNAME], help="Specify to use a custom server name. Default name: " + SERVERNAME)
    	args = parser.parse_args()
-   	SERVERPORT = args.port
+   	SERVERPORT = int(args.port)
    	SERVERNAME = ' '.join(args.name)
    	main()
