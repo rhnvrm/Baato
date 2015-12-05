@@ -1,5 +1,9 @@
-Baato | A simple HTTP Host and Online Server Listing
+Baato 
 =======================
+
+##About 
+Baato.py is a Multi threaded HTTP server along with a Flask server (listener.py) which lists all other Baato HTTP servers running on your LAN.
+
 Requires `Python 2.7` (and [Flask](http://flask.pocoo.org/) for `listener.py`)
 
 You can download [Python 2.7](https://www.python.org/downloads/release/python-2710/) and for [windows](https://www.python.org/downloads/release/python-2710/)
